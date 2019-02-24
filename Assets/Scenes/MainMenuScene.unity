@@ -1163,6 +1163,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   allContributorIDs:
   - AP
+  - TransMP
+  - Industry
   - Example
 --- !u!4 &1420620112
 Transform:
