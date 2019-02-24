@@ -597,10 +597,10 @@ PlayerSettings:
   facebookXfbml: 0
   facebookFrictionlessRequests: 1
   apiCompatibilityLevel: 2
-  cloudProjectId: 6f5e4b88-5ef9-4e43-81f0-5ae5b57639f2
+  cloudProjectId: 65e96d0c-30ca-4737-b4f7-c718ad9fec2f
   framebufferDepthMemorylessMode: 0
-  projectName: MidtermProject
-  organizationId: alect
+  projectName: StoneSoup
+  organizationId: william-spelman
   cloudEnabled: 0
   enableNativePlatformBackendsForNewInputSystem: 0
   disableOldInputManagerSupport: 0
