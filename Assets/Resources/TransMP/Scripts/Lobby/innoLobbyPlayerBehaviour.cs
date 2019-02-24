@@ -24,7 +24,6 @@ public class innoLobbyPlayerBehaviour : MonoBehaviour
     // Settings
     public int player_num;
     public bool local;
-    public int flag_sprite;
 
     // Variables
     private bool buttons_init;
@@ -49,7 +48,7 @@ public class innoLobbyPlayerBehaviour : MonoBehaviour
 
         // Reset Graphics
         player_name.text = sm.player_objects[player_num].name_tag;
-        flag_sprite = sm.player_objects[player_num].flag;
+        player_flag.sprite = flag_sprites[sm.player_objects[player_num].flag];
         player_ping.text = "0ms";
         player_check.SetActive(sm.player_objects[player_num].ready);
     }
@@ -69,10 +68,7 @@ public class innoLobbyPlayerBehaviour : MonoBehaviour
 
         // Update Graphics
         player_name.text = sm.player_objects[player_num].name_tag;
-        if (flag_sprite != sm.player_objects[player_num].flag) {
-            flag_sprite = sm.player_objects[player_num].flag;
-            player_flag.sprite = flag_sprites[flag_sprite];
-        }
+        player_flag.sprite = flag_sprites[sm.player_objects[player_num].flag];
         player_ping.text = sm.player_objects[player_num].ping + "ms";
         player_check.SetActive(sm.player_objects[player_num].ready);
     }

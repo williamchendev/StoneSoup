@@ -81,8 +81,18 @@ public class innoMultiplayerServerBehaviour : NetworkBehaviour
                     if (player_objects[i] != null) {
                         if (player_objects[i].isLocalPlayer) {
                             player_authority = i;
+                            break;
                         }
                     }
+                }
+            }
+        }
+
+        // Check if Player is Disconnected
+        if (isServer) {
+            for (int i = 0; i < 4; i++) {
+                if (player_objects[i] == null && players_connected[i]) {
+                    RpcRemovePlayer(i);
                 }
             }
         }
@@ -125,6 +135,16 @@ public class innoMultiplayerServerBehaviour : NetworkBehaviour
     public void RpcAddNewPlayer(int index, string net_id, string player_name) {
         players_connected[index] = true;
         player_network_ids[index] = net_id;
+
+        for (int i = 0; i < 4; i++) {
+            Debug.Log(players_connected[i] + ": " + player_network_ids[i]);
+        }
+    }
+
+    [ClientRpc]
+    public void RpcRemovePlayer(int index) {
+        players_connected[index] = false;
+        player_network_ids[index] = null;
 
         for (int i = 0; i < 4; i++) {
             Debug.Log(players_connected[i] + ": " + player_network_ids[i]);
