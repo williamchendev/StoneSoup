@@ -44,7 +44,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8112f2db2408222498faf7de34092e1e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gameManager: {fileID: 9105901810145086812, guid: 1f6edddb8ccef0544a26755faa639e44,
+    type: 3}
+  gameCamera: {fileID: 309726669035439691, guid: 04f0000abaca63e4ca9036a283c255c6,
+    type: 3}
+  gameCanvas: {fileID: 9100243632866217006, guid: a3faff4aa288b704fa745dc4757f1e5b,
+    type: 3}
   in_lobby: 0
+  lobby_timer: 0
   random_names:
   - BigGay
   - MotherWhy

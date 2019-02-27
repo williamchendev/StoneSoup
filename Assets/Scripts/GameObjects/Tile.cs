@@ -201,14 +201,28 @@ public class Tile : MonoBehaviour {
 	}
 
 
-	/////////////////////////////////
+    /////////////////////////////////
 
-	// Tile behavior functions defined here.
+    // Tile behavior functions defined here.
 
-	// This function is explicitly called after a tile has been spawned and positioned.
-	// We use this instead of the Unity-defined Start or Awake because we have extremely precise
-	// control over when it's called (for instance, if we just instantiated a tile, Start won't be called until after our current code compeletes, etc.)
-	public virtual void init() {
+    // This function is explicitly called after a tile has been spawned and positioned.
+    // We use this instead of the Unity-defined Start or Awake because we have extremely precise
+    // control over when it's called (for instance, if we just instantiated a tile, Start won't be called until after our current code compeletes, etc.)
+    private bool multiplayer_init;
+
+    public void OnEnable() {
+        if (!multiplayer_init) {
+            if (GameManager.instance.multiplayer) {
+                for (int i = 0; i < GameManager.instance.multiplayer_behaviour.Count; i++) {
+                    GameObject new_multiplayer_child = Instantiate(GameManager.instance.multiplayer_behaviour[i]);
+                    new_multiplayer_child.transform.SetParent(transform);
+                }
+                multiplayer_init = true;
+            }
+        }
+    }
+
+    public virtual void init() {
 		_sprite = GetComponentInChildren<SpriteRenderer>();
 		updateSpriteSorting();
 		_anim = GetComponentInChildren<Animator>();

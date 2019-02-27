@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -14,6 +15,11 @@ public class GameManager : MonoBehaviour {
 	}
 	public static GameMode gameMode = GameMode.CombinedRooms;
 
+    [Header("Multiplayer")]
+    public bool multiplayer = false;
+    [HideInInspector] 
+    public List<GameObject> multiplayer_behaviour;
+    public Dictionary<string, ScriptableObject> multiplayer_data;
 
 	// END TYPES
 	/////////////////
@@ -70,16 +76,16 @@ public class GameManager : MonoBehaviour {
 	////////////////////////
 	// GAME LOGIC GOES HERE
 
-	public void Awake () {
+	public virtual void Awake () {
 		Application.targetFrameRate = 60;
 		_instance = this;
 		levelGenerator.generateLevel();
 	}
 
-	public void Start() {
+	public virtual void Start() {
 	}
 	
-	public void Update () {
+	public virtual void Update () {
 		if (_gameIsOver) {
 			return;
 		}
@@ -136,7 +142,6 @@ public class GameManager : MonoBehaviour {
 				currentRoom = roomGrid[playerRoomX, playerRoomY];
 				Player.instance.transform.parent = currentRoom.transform;
 			}
-
 
 		}
 

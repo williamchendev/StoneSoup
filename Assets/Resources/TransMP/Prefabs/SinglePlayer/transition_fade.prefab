@@ -97,4 +97,4 @@ MonoBehaviour:
   lobby_objs:
   - {fileID: 471902853650044062, guid: d014fa4b4fda9c34c9a4f83e92b713b5, type: 3}
   - {fileID: 6009145346023929233, guid: 3e5824c69fdc69347a2abef6efe130ec, type: 3}
-  - {fileID: 424, guid: 6227b31ae77bc364e9716bc1ed830128, type: 3}
+  - {fileID: 307, guid: 6227b31ae77bc364e9716bc1ed830128, type: 3}

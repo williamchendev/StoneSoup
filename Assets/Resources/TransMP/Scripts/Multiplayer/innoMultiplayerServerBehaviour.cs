@@ -1,25 +1,38 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.Networking;
+using UnityEngine.SceneManagement;
 
 public class innoMultiplayerServerBehaviour : NetworkBehaviour
 {
     // Singleton
     public static innoMultiplayerServerBehaviour instance { get; private set; }
 
+    // Objects
+    [Header("Multiplayer Game Scene Objects")]
+    public GameObject gameManager;
+    public GameObject gameCamera;
+    public GameObject gameCanvas;
+
     // Settings
+    [Header("Lobby Settings")]
     [SyncVar] public bool in_lobby;
+    [SyncVar] public float lobby_timer;
+
+    [Header("Game Data")]
     public string[] random_names;
+    [HideInInspector] public SyncListString mod_list = new SyncListString();
 
     // Player Data
-    public Queue<innoMultiplayerPlayerBehaviour> player_queue;
+    [HideInInspector] public Queue<innoMultiplayerPlayerBehaviour> player_queue;
 
-    public int player_authority;
-    public List<innoMultiplayerPlayerBehaviour> player_objects;
+    [HideInInspector] public int player_authority;
+    [HideInInspector] public List<innoMultiplayerPlayerBehaviour> player_objects;
 
-    public SyncListBool players_connected = new SyncListBool();
-    public SyncListString player_network_ids = new SyncListString();
+    [HideInInspector] public SyncListBool players_connected = new SyncListBool();
+    [HideInInspector] public SyncListString player_network_ids = new SyncListString();
 
     // Instantiate
     void Awake()
@@ -31,6 +44,7 @@ public class innoMultiplayerServerBehaviour : NetworkBehaviour
         }
         else {
             DontDestroyOnLoad(gameObject);
+            DontDestroyOnLoad(NetworkManager.singleton);
             gameObject.name = "ServerManagement";
             instance = this;
         }
@@ -51,6 +65,7 @@ public class innoMultiplayerServerBehaviour : NetworkBehaviour
 
         // Lobby
         in_lobby = true;
+        lobby_timer = 4f;
         player_authority = -1;
         
         GameObject.Find("LobbyActive").GetComponent<innoLobbyManagerBehaviour>().sm = this;
@@ -86,6 +101,43 @@ public class innoMultiplayerServerBehaviour : NetworkBehaviour
                     }
                 }
             }
+
+            // Check if Everyone is ready
+            if (isServer) {
+                float new_time = lobby_timer;
+                if (allPlayersReady) {
+                    new_time = Mathf.Clamp(new_time, 0, 3.8f);
+                    new_time -= 0.01f;
+
+                    // ModList
+                    if (mod_list.Count <= 0) {
+                        RpcUpdateHostModList(ContributorList.instance.activeContributorIDs);
+                    }
+                }
+                else {
+                    new_time = 4;
+                }
+
+                if (new_time <= 0) {
+                    RpcUpdateLobbyTimer(4);
+                    RpcUpdateInLobby(false);
+                    RpcStartGame();
+
+                    loadGameLevel();
+                }
+                else {
+                    RpcUpdateLobbyTimer(new_time);
+                }
+            }
+
+            // Update Timer
+            if (lobby_timer > 3f) {
+                GameObject.Find("LobbyCanvas").transform.GetChild(4).gameObject.SetActive(false);
+            }
+            else {
+                GameObject.Find("LobbyCanvas").transform.GetChild(4).gameObject.SetActive(true);
+                GameObject.Find("LobbyCanvas").transform.GetChild(4).GetComponent<Text>().text = Mathf.CeilToInt(Mathf.Clamp(lobby_timer, 0, 3)) + "";
+            }
         }
 
         // Check if Player is Disconnected
@@ -96,6 +148,32 @@ public class innoMultiplayerServerBehaviour : NetworkBehaviour
                 }
             }
         }
+    }
+
+    // Load Game Methods
+    [ClientRpc]
+    public void RpcUpdateHostModList(string[] new_mod_list) {
+        mod_list.Clear();
+
+        for (int i = 0; i < new_mod_list.Length; i++) {
+            mod_list.Add(new_mod_list[i]);
+        }
+    }
+
+    [ClientRpc]
+    public void RpcStartGame() {
+        Destroy(GameObject.Find("LobbyCanvas"));
+        Destroy(GameObject.Find("Main Camera"));
+
+        Instantiate(gameCamera);
+        Instantiate(gameCanvas);
+        Instantiate(gameManager);
+        GameObject tilesyncparent = new GameObject("TileSync");
+        tilesyncparent.transform.position = Vector3.zero;
+    }
+
+    public void loadGameLevel() {
+        
     }
 
     // Player Networking Methods
@@ -137,7 +215,7 @@ public class innoMultiplayerServerBehaviour : NetworkBehaviour
         player_network_ids[index] = net_id;
 
         for (int i = 0; i < 4; i++) {
-            Debug.Log(players_connected[i] + ": " + player_network_ids[i]);
+            //Debug.Log(players_connected[i] + ": " + player_network_ids[i]);
         }
     }
 
@@ -147,8 +225,19 @@ public class innoMultiplayerServerBehaviour : NetworkBehaviour
         player_network_ids[index] = null;
 
         for (int i = 0; i < 4; i++) {
-            Debug.Log(players_connected[i] + ": " + player_network_ids[i]);
+            //Debug.Log(players_connected[i] + ": " + player_network_ids[i]);
         }
+    }
+
+    // Server Lobby Methods
+    [ClientRpc]
+    public void RpcUpdateInLobby(bool is_in_lobby) {
+        in_lobby = is_in_lobby;
+    }
+
+    [ClientRpc]
+    public void RpcUpdateLobbyTimer(float time) {
+        lobby_timer = time;
     }
 
     // Player Data Methods
@@ -199,5 +288,24 @@ public class innoMultiplayerServerBehaviour : NetworkBehaviour
         }
 
         return -1;
+    }
+
+    // Public Get Variables
+    public bool allPlayersReady {
+        get {
+            int players_num = 0;
+            bool players_ready_now = true;
+            for (int i = 0; i < 4; i++) {
+                if (player_objects[i] != null) {
+                    players_num++;
+                    if (!player_objects[i].ready) {
+                        players_ready_now = false;
+                        break;
+                    }
+                }
+            }
+
+            return ((players_num > 1) && players_ready_now);
+        }
     }
 }
