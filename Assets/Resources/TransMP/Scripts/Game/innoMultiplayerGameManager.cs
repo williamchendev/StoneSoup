@@ -22,7 +22,11 @@ public class innoMultiplayerGameManager : GameManager
 
     public override void Start () {
         if (innoMultiplayerServerBehaviour.instance.isServer) {
+            Destroy(transform.GetChild(0).gameObject);
             base.Awake();
+        }
+        else {
+            transform.GetChild(0).gameObject.SetActive(true);
         }
     }
 
@@ -50,10 +54,10 @@ public class innoMultiplayerGameManager : GameManager
                 // Check if Mod Exists
                 if (tile_syncs.Length > 0) {
                     // Add mod!
-                    Debug.Log(mod_list[i] + " was added!");
+                    //Debug.Log(mod_list[i] + " was added!");
                     for (int q = 0; q < tile_syncs.Length; q++) {
                         multiplayer_data.Add(tile_syncs[q].tile_name, tile_syncs[q]);
-                        Debug.Log(mod_list[i] + ": " + tile_syncs[q].tile_name);
+                        //Debug.Log(mod_list[i] + ": " + tile_syncs[q].tile_name);
                     }
 
                     active_mods.Add(mod_list[i]);
@@ -64,6 +68,7 @@ public class innoMultiplayerGameManager : GameManager
                 Debug.Log(mod_list[i] + "couldn't be loaded :C");
             }
         }
+
     }
 
 }

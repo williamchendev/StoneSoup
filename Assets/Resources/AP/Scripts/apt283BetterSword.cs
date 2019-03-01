@@ -128,10 +128,12 @@ public class apt283BetterSword : Tile {
 		StopAllCoroutines();
 	}
 
-	void OnEnable() {
+	public override void OnEnable() {
 		if (_tileHoldingUs != null && swingPivot != null) {
 			transform.parent = swingPivot.transform;
 		}
+
+        base.OnEnable();
 	}
 
 

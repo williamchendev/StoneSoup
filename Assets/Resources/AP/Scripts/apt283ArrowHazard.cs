@@ -58,8 +58,10 @@ public class apt283ArrowHazard : BasicAICreature {
 		Destroy(tileDetectorObj);
 	}
 
-	void OnEnable() {
+	public override void OnEnable() {
 		_timeUntilCanFire = 0.1f;
+
+        base.OnEnable();
 	}
 
 	

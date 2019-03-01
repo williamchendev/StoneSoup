@@ -13,8 +13,8 @@ GameObject:
   - component: {fileID: 1570332478041924421}
   - component: {fileID: 1483616620510765654}
   - component: {fileID: 8280095734935167648}
+  - component: {fileID: 3327998837378393484}
   - component: {fileID: 6437523794811391718}
-  - component: {fileID: 1909065931776389140}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -103,6 +103,20 @@ AudioListener:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 309726669035439691}
   m_Enabled: 1
+--- !u!114 &3327998837378393484
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 309726669035439691}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a8f45924019a4b4c9f1f5c755698835, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  follow_obj: {fileID: 0}
+  cameraFollowSpeed: 10
 --- !u!114 &6437523794811391718
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -117,19 +131,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   scaleOneScreenWidth: 266
   scaleOneScreenHeight: 240
---- !u!114 &1909065931776389140
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 309726669035439691}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 882249f4bb4e4453ca7af4e81bd6482d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  cameraFollowSpeed: 10
 --- !u!1 &356695029797455299
 GameObject:
   m_ObjectHideFlags: 0

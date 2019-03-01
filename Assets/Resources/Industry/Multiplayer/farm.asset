@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8374228ec8d285848b6f53b521b58eda, type: 3}
+  m_Name: farm
+  m_EditorClassIdentifier: 
+  tile_name: field(Clone)
+  sprites:
+  - {fileID: 21300000, guid: 57912821653c8ad41a0bbbcab0ac7581, type: 3}
+  - {fileID: 21300002, guid: 57912821653c8ad41a0bbbcab0ac7581, type: 3}
+  - {fileID: 21300004, guid: 57912821653c8ad41a0bbbcab0ac7581, type: 3}
+  - {fileID: 21300006, guid: 57912821653c8ad41a0bbbcab0ac7581, type: 3}
+  - {fileID: 21300008, guid: 57912821653c8ad41a0bbbcab0ac7581, type: 3}
+  - {fileID: 21300010, guid: 57912821653c8ad41a0bbbcab0ac7581, type: 3}
+  update_sprite: 1
+  update_flip: 0
+  update_transform: 0
+  position: 0
+  rotation: 0
+  player: 0
+  sync_delay: 0
+  delay_time: 0

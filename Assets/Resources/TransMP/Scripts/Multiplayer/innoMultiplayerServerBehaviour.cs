@@ -108,11 +108,6 @@ public class innoMultiplayerServerBehaviour : NetworkBehaviour
                 if (allPlayersReady) {
                     new_time = Mathf.Clamp(new_time, 0, 3.8f);
                     new_time -= 0.01f;
-
-                    // ModList
-                    if (mod_list.Count <= 0) {
-                        RpcUpdateHostModList(ContributorList.instance.activeContributorIDs);
-                    }
                 }
                 else {
                     new_time = 4;
@@ -121,9 +116,8 @@ public class innoMultiplayerServerBehaviour : NetworkBehaviour
                 if (new_time <= 0) {
                     RpcUpdateLobbyTimer(4);
                     RpcUpdateInLobby(false);
+                    RpcUpdateHostModList(ContributorList.instance.activeContributorIDs);
                     RpcStartGame();
-
-                    loadGameLevel();
                 }
                 else {
                     RpcUpdateLobbyTimer(new_time);
@@ -172,10 +166,6 @@ public class innoMultiplayerServerBehaviour : NetworkBehaviour
         tilesyncparent.transform.position = Vector3.zero;
     }
 
-    public void loadGameLevel() {
-        
-    }
-
     // Player Networking Methods
 
     public void checkPlayerQueue() {
@@ -213,20 +203,12 @@ public class innoMultiplayerServerBehaviour : NetworkBehaviour
     public void RpcAddNewPlayer(int index, string net_id, string player_name) {
         players_connected[index] = true;
         player_network_ids[index] = net_id;
-
-        for (int i = 0; i < 4; i++) {
-            //Debug.Log(players_connected[i] + ": " + player_network_ids[i]);
-        }
     }
 
     [ClientRpc]
     public void RpcRemovePlayer(int index) {
         players_connected[index] = false;
         player_network_ids[index] = null;
-
-        for (int i = 0; i < 4; i++) {
-            //Debug.Log(players_connected[i] + ": " + player_network_ids[i]);
-        }
     }
 
     // Server Lobby Methods

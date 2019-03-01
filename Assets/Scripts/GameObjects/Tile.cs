@@ -210,12 +210,11 @@ public class Tile : MonoBehaviour {
     // control over when it's called (for instance, if we just instantiated a tile, Start won't be called until after our current code compeletes, etc.)
     private bool multiplayer_init;
 
-    public void OnEnable() {
+    public virtual void OnEnable() {
         if (!multiplayer_init) {
             if (GameManager.instance.multiplayer) {
                 for (int i = 0; i < GameManager.instance.multiplayer_behaviour.Count; i++) {
-                    GameObject new_multiplayer_child = Instantiate(GameManager.instance.multiplayer_behaviour[i]);
-                    new_multiplayer_child.transform.SetParent(transform);
+                    Instantiate(GameManager.instance.multiplayer_behaviour[i], transform);
                 }
                 multiplayer_init = true;
             }

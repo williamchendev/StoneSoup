@@ -23,3 +23,10 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 24752c050b5894a499797ab9c4dd4643, type: 3}
   - {fileID: 21300000, guid: 20e6adeba182247a6bf34818022ed53c, type: 3}
   - {fileID: 21300000, guid: 064c7a388b6ca41879d212d810d8fbdf, type: 3}
+  update_sprite: 1
+  update_flip: 1
+  update_transform: 1
+  position: 1
+  rotation: 0
+  player: 1
+  sync_rate: 13
