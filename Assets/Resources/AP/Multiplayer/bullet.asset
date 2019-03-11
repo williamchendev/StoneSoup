@@ -21,5 +21,4 @@ MonoBehaviour:
   position: 1
   rotation: 1
   player: 0
-  sync_delay: 0
-  delay_time: 0
+  sync_rate: 20

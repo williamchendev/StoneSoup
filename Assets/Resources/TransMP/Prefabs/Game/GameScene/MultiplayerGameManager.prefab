@@ -28,7 +28,7 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 3855008265329282273}
+  - {fileID: 3855008265329282243}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -51,6 +51,10 @@ MonoBehaviour:
   letterBox: {fileID: 0}
   currentRoom: {fileID: 0}
   borderObjects: {fileID: 0}
+  multiplayer_player: {fileID: 6719909515876714684, guid: 6e22e491858c0d94e810285baa9b917f,
+    type: 3}
+  multiplayer_nabori: {fileID: 4118013526489447289, guid: 4c952b82b9356844b8e04ff5c77df5a0,
+    type: 3}
   multiplayer_behaviour_object: {fileID: 8046804962011601450, guid: ee8d6fefee9d9c84fa326ae52bf222bc,
     type: 3}
   active_mods: []
@@ -128,7 +132,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5b880bdd80c2f7d468718e2236c00d53, type: 3}
---- !u!4 &3855008265329282273 stripped
+--- !u!4 &3855008265329282243 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4320536452495451730, guid: 5b880bdd80c2f7d468718e2236c00d53,
     type: 3}

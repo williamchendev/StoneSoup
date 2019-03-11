@@ -15,10 +15,10 @@ MonoBehaviour:
   tile_name: basic_enemy(Clone)
   sprites:
   - {fileID: 21300000, guid: 716025c24de244dc5b7e0a02216e527e, type: 3}
-  update_sprite: 0
+  update_sprite: 1
   update_flip: 0
   update_transform: 1
   position: 1
   rotation: 0
-  sync_delay: 0
-  delay_time: 0
+  player: 0
+  sync_rate: 10

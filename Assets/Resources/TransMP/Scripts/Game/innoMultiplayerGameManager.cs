@@ -8,6 +8,8 @@ using UnityEngine.Networking;
 public class innoMultiplayerGameManager : GameManager
 {
     // Variables
+    public GameObject multiplayer_player;
+    public GameObject multiplayer_nabori;
     public GameObject multiplayer_behaviour_object;
 
     [HideInInspector]
@@ -23,7 +25,25 @@ public class innoMultiplayerGameManager : GameManager
     public override void Start () {
         if (innoMultiplayerServerBehaviour.instance.isServer) {
             Destroy(transform.GetChild(0).gameObject);
+            ContributorList.instance.deactivateContributorID("TransMP");
             base.Awake();
+            ContributorList.instance.activateContributorID("TransMP");
+
+            // Debug Instantiate Players
+            Vector2 temp_position = Player.instance.transform.position;
+            Destroy(Player.instance.gameObject);
+            for (int i = 0; i < 4; i++) {
+                if (innoMultiplayerServerBehaviour.instance.player_objects[i] != null) {
+                    GameObject new_player = Instantiate(multiplayer_player);
+                    new_player.transform.position = new Vector3(temp_position.x, temp_position.y, 0f);
+                    new_player.GetComponent<innoMultiplayerPlayer>().client_index = i;
+                    new_player.GetComponent<innoMultiplayerPlayer>().local_player = innoMultiplayerServerBehaviour.instance.player_objects[i];
+                    GameObject new_nabori = Instantiate(multiplayer_nabori);
+                    new_nabori.transform.position = new_player.transform.position;
+                    new_nabori.GetComponent<innoMultiplayerNabori>().sprite_index = innoMultiplayerServerBehaviour.instance.player_objects[i].flag;
+                    new_nabori.GetComponent<innoMultiplayerNabori>().player_follow = new_player;
+                }
+            }
         }
         else {
             transform.GetChild(0).gameObject.SetActive(true);

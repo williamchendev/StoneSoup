@@ -64,7 +64,7 @@ public class Player : Tile {
 
 	// The player does movement inside FixedUpdate because the player's movement is continuous 
 	// and thus should happen on the physics updates.
-	void FixedUpdate() {
+	public virtual void FixedUpdate() {
 		// Let's move via the keyboard controls
 
 		bool tryToMoveUp = Input.GetKey(KeyCode.UpArrow) || Input.GetKey(KeyCode.W);
@@ -129,7 +129,7 @@ public class Player : Tile {
 		handSymbol.SetActive(onItem);
 	}
 
-	void Update() {
+	public virtual void Update() {
 
 		if (GameManager.instance.gameIsOver) {
 			return;
